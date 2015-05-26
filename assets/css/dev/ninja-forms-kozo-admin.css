@@ -1,0 +1,14 @@
+.nf_kozo__form {
+    width: 500px;
+    max-width: 100%;
+}
+.nf_kozo__field-wrap {
+    margin-bottom: 10px;
+}
+.nf_kozo__field-wrap label {
+    display: block;
+    margin-bottom: 5px;;
+}
+.nf_kozo__field-wrap input {
+    padding: 7px;
+}

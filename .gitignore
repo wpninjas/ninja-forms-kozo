@@ -1,0 +1,11 @@
+# OS Stuff
+
+# IDE Stuff
+.idea
+
+# Node Stuff
+node_modules
+
+# Project Stuff
+kozo/*
+!kozo/boilerplate
