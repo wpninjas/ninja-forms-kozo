@@ -15,6 +15,7 @@ Copyright 2015 WP Ninjas.
 if( ! class_exists( 'NF_Base_Menu' ) ) {
     require_once 'classes/menu.class.php';
 }
+require_once 'kozo/generator.php';
 require_once 'includes/admin/menu.php';
 
 /**

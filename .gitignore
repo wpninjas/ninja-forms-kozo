@@ -9,3 +9,4 @@ node_modules
 # Project Stuff
 kozo/*
 !kozo/boilerplate
+!kozo/generator.php
