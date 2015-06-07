@@ -39,8 +39,10 @@ final class NF_{{NAME}}_Action extends NF_Notification_Base_Type
      *
      * @return void
      */
-    public function edit_screen()
+    public function edit_screen( $id = '' )
     {
+        $settings['example'] = Ninja_Forms()->notification( $id )->get_setting( 'example' );
+
         include NF_{{NAME}}::$dir . 'includes/templates/action-{{name}}.html.php';
     }
 

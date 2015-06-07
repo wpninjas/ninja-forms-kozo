@@ -1,8 +1,8 @@
 <tr>
     <th scope="row">
-        <label for="setting"><?php NF_Kozo::_e( 'Example Setting'  ); ?></label>
+        <label for="settings[example]"><?php NF_Kozo::_e( 'Example Setting' ); ?></label>
     </th>
     <td>
-        <input type="text" name="setting" id="setting" />
+        <input type="text" name="settings[example]" id="settings-example" value="<?php echo $settings['example']; ?>" />
     </td>
 </tr>
