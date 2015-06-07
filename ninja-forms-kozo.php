@@ -69,6 +69,7 @@ class NF_Kozo
     public function ninja_forms_includes()
     {
         require_once self::$dir . 'includes/actions/example.php';
+        require_once self::$dir . 'includes/actions/generate.php';
     }
 
     /**
