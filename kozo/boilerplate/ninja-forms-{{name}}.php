@@ -40,6 +40,12 @@ class NF_{{NAME}}
      */
     public static $url = '';
 
+    /**
+     * Ninja Forms Extension Updater
+     *
+     * @var object
+     */
+    public $NF_Extension_Updater;
 
 
     /**
@@ -69,6 +75,19 @@ class NF_{{NAME}}
     {
         require_once self::$dir . 'includes/actions/{{name}}.php';
     }
+
+    /**
+     * Extension Setup License
+     *
+     * Register with the Ninja Forms licensing system through Easy Digital Downloads
+     */
+    public function ninja_forms_extension_setup_license()
+    {
+        if ( class_exists( 'NF_Extension_Updater' ) ) {
+            $this->NF_Extension_Updater = new NF_Extension_Updater( '{{NAME}}', self::VERSION, '{{AUTHOR}}', __FILE__, '{{name}}' );
+        }
+    }
+
 
 
     /*
