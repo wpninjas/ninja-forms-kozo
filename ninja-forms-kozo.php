@@ -72,26 +72,6 @@ class NF_Kozo
         require_once self::$dir . 'includes/actions/generate.php';
     }
 
-    /**
-     * Translation
-     *
-     * A wrapper for the WordPress translation function
-     * @param $text
-     * @return mixed
-     */
-    public static function __( $text ){
-        return __( $text, self::TEXTDOMAIN );
-    }
-
-    /**
-     * Echo Translation
-     *
-     * A wrapper for the WordPress echo translation function
-     * @param $text
-     */
-    public static function _e( $text ){
-        _e( $text, self::TEXTDOMAIN );
-    }
 
 
     /*
