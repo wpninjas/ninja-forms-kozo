@@ -1,6 +1,6 @@
 <div class="wrap">
 
-    <h2><?php _e( 'Ninja Forms', 'ninja-forms' ); ?> <?php NF_Kozo::_e( 'Kozo' ); ?></h2>
+    <h2><?php _e( 'Ninja Forms', 'ninja-forms' ); ?> <?php _e( 'Kozo', NF_Kozo::TEXTDOMAIN ); ?></h2>
 
     <p>Kōzō, meaning structure, makes developing for Ninja Forms ninja fast.</p>
 
