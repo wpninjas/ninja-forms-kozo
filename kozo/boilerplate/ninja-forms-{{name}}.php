@@ -43,7 +43,7 @@ class NF_{{NAME}}
     /**
      * Ninja Forms Extension Updater
      *
-     * @var object
+     * @var NF_Extension_Updater
      */
     public $NF_Extension_Updater;
 
