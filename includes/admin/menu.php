@@ -7,11 +7,11 @@ final class NF_Kozo_Menu extends NF_Base_Menu
     public function __construct()
     {
         $this->name = 'Kozo';
-        $this->title = NF_Kozo::__( $this->name );
+        $this->title = __( $this->name, NF_Kozo::TEXTDOMAIN );
 
         $this->settings = array(
-            'example1' => NF_Kozo::__( 'Example One' ),
-            'example2' => NF_Kozo::__( 'Example Two' ),
+            'example1' => __( 'Example One', NF_Kozo::TEXTDOMAIN ),
+            'example2' => __( 'Example Two', NF_Kozo::TEXTDOMAIN ),
         );
 
         parent::__construct();

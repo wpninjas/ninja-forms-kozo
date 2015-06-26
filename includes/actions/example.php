@@ -14,7 +14,7 @@ final class NF_Example_Action extends NF_Notification_Base_Type
      */
     public function __construct()
     {
-        $this->name = NF_Kozo::__( 'Example' );
+        $this->name = __( 'Example', NF_Kozo::TEXTDOMAIN );
 
         add_filter( 'nf_notification_types', array( $this, 'register_action_type' ) );
     }
@@ -37,6 +37,7 @@ final class NF_Example_Action extends NF_Notification_Base_Type
     /**
      * Edit Screen
      *
+     * @param $id
      * @return void
      */
     public function edit_screen( $id = '' )
