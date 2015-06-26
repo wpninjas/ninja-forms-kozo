@@ -1,7 +1,7 @@
 <!-- SETTINGS: PLUGIN NAME -->
 <tr>
     <th scope="row">
-        <label for="settings[plugin-name]"><?php NF_Kozo::_e( 'Plugin Name' ); ?> <span style="color: red;">*</span></label>
+        <label for="settings[plugin-name]"><?php _e( 'Plugin Name', NF_Kozo::TEXTDOMAIN ); ?> <span style="color: red;">*</span></label>
     </th>
     <td>
         <select name="settings[plugin-name]" id="settings-plugin-name" required>
@@ -20,7 +20,7 @@
 <!-- SETTINGS: PLUGIN URI -->
 <tr>
     <th scope="row">
-        <label for="settings[plugin-uri]"><?php NF_Kozo::_e( 'Plugin URI' ); ?></label>
+        <label for="settings[plugin-uri]"><?php _e( 'Plugin URI', NF_Kozo::TEXTDOMAIN ); ?></label>
     </th>
     <td>
         <select name="settings[plugin-uri]" id="settings-plugin-uri">
@@ -39,7 +39,7 @@
 <!-- SETTINGS: DESCRIPTION -->
 <tr>
     <th scope="row">
-        <label for="settings[description]"><?php NF_Kozo::_e( 'Description' ); ?></label>
+        <label for="settings[description]"><?php _e( 'Description', NF_Kozo::TEXTDOMAIN ); ?></label>
     </th>
     <td>
         <select name="settings[description]" id="settings-description">
@@ -58,7 +58,7 @@
 <!-- SETTINGS: AUTHOR -->
 <tr>
     <th scope="row">
-        <label for="settings[author]"><?php NF_Kozo::_e( 'Author' ); ?></label>
+        <label for="settings[author]"><?php _e( 'Author', NF_Kozo::TEXTDOMAIN ); ?></label>
     </th>
     <td>
         <select name="settings[author]" id="settings-author">
@@ -77,7 +77,7 @@
 <!-- SETTINGS: AUTHOR URI -->
 <tr>
     <th scope="row">
-        <label for="settings[author-uri]"><?php NF_Kozo::_e( 'Author URI' ); ?></label>
+        <label for="settings[author-uri]"><?php _e( 'Author URI', NF_Kozo::TEXTDOMAIN ); ?></label>
     </th>
     <td>
         <select name="settings[author-uri]" id="settings-author-uri">
@@ -96,7 +96,7 @@
 <!-- SETTINGS: DOWNLOAD -->
 <tr>
     <th scope="row">
-        <label for="settings[download]"><?php NF_Kozo::_e( 'Download' ); ?></label>
+        <label for="settings[download]"><?php _e( 'Download', NF_Kozo::TEXTDOMAIN ); ?></label>
     </th>
     <td>
         <input type="checkbox" name="settings[download]" id="settings-download"  <?php if( $settings['download'] ) echo " checked"; ?>/>

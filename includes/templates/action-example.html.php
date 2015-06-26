@@ -1,6 +1,6 @@
 <tr>
     <th scope="row">
-        <label for="settings[example]"><?php NF_Kozo::_e( 'Example Setting' ); ?></label>
+        <label for="settings[example]"><?php _e( 'Example Setting', NF_Kozo::TEXTDOMAIN ); ?></label>
     </th>
     <td>
         <input type="text" name="settings[example]" id="settings-example" value="<?php echo $settings['example']; ?>" />

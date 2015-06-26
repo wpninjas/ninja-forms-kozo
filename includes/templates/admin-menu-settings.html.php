@@ -29,7 +29,7 @@
 
             <tr>
                 <th colspan="2">
-                    <input type="submit" class="button button-primary" value="<?php NF_Kozo::_e( 'Save Settings' ); ?>"/>
+                    <input type="submit" class="button button-primary" value="<?php _e( 'Save Settings', NF_Kozo::TEXTDOMAIN ); ?>"/>
                 </th>
             </tr>
 

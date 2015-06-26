@@ -14,7 +14,7 @@ final class NF_Generate_Action extends NF_Notification_Base_Type
      */
     public function __construct()
     {
-        $this->name = NF_Kozo::__( 'Generate' );
+        $this->name = __( 'Generate', NF_Kozo::TEXTDOMAIN );
 
         add_filter( 'nf_notification_types', array( $this, 'register_action_type' ) );
     }
