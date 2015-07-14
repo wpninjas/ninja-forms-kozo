@@ -4,7 +4,7 @@
         <label for="settings[plugin-name]"><?php _e( 'Plugin Name', NF_Kozo::TEXTDOMAIN ); ?> <span style="color: red;">*</span></label>
     </th>
     <td>
-        <select name="settings[plugin-name]" id="settings-plugin-name" required>
+        <select name="settings[plugin-name]" id="settings-plugin-name">
             <option value="">-</option>
             <?php foreach( $form->fields as $field ): ?>
 
