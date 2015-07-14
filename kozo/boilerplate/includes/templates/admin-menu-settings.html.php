@@ -10,7 +10,7 @@
                     <label for="version">Version</label>
                 </th>
                 <td>
-                    <?php echo NF_{{NAME}}::Version; ?>
+                    <?php echo NF_{{NAME}}::VERSION; ?>
                 </td>
             </tr>
 
