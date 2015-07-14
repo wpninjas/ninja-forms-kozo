@@ -1,6 +1,6 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit;
 
-final class NF_{{NAME}}_Menu extends NF_Base_Menu
+final class NF_Menu_{{NAME}} extends NF_Base_Menu
 {
     public $menu_slug = 'ninja-forms-{{name}}';
 
