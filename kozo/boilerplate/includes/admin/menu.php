@@ -6,8 +6,8 @@ final class NF_{{NAME}}_Menu extends NF_Base_Menu
 
     public function __construct()
     {
-        $this->name  = '{{NAME}}';
-        $this->title = __( '{{NAME}}', NF_{{NAME}}::TEXTDOMAIN );
+        $this->name  = '{{name}}';
+        $this->title = __( '{{Name}}', NF_{{NAME}}::TEXTDOMAIN );
 
         $this->settings = array(
             'example1' => __( 'Example One', NF_{{NAME}}::TEXTDOMAIN ),

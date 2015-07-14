@@ -10,7 +10,7 @@
                     <label for="version">Version</label>
                 </th>
                 <td>
-                    0.0.1
+                    <?php echo NF_{{NAME}}::Version; ?>
                 </td>
             </tr>
 
@@ -29,7 +29,7 @@
 
             <tr>
                 <th colspan="2">
-                    <input type="submit" class="button button-primary" value="<?php NF_Kozo::_e( 'Save Settings' ); ?>"/>
+                    <input type="submit" class="button button-primary" value="<?php _e( 'Save Settings', 'ninja-forms' ); ?>"/>
                 </th>
             </tr>
 

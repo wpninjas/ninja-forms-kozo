@@ -1,6 +1,6 @@
 <div class="wrap">
 
-    <h2><?php _e( 'Ninja Forms', 'ninja-forms' ); ?> <?php _e( '{{NAME}}', NF_{{NAME}}::TEXTDOMAIN ); ?></h2>
+    <h2><?php _e( 'Ninja Forms', 'ninja-forms' ); ?> <?php _e( '{{Name}}', NF_{{NAME}}::TEXTDOMAIN ); ?></h2>
 
     <p>{{DESCRIPTION}}</p>
 

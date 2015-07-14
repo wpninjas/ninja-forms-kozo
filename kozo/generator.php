@@ -31,8 +31,9 @@ class NF_Kozo_Generator
     public function generate()
     {
         $args = array(
-            'name'        => strtolower( $this->name ),
-            'NAME'        => ucwords( $this->name ),
+            'name'        => str_replace( ' ', '-', strtolower( $this->name ) ),
+            'Name'        => $this->name,
+            'NAME'        => str_replace( ' ', '', ucwords( $this->name ) ),
             'PLUGIN URI'  => $this->plugin_uri,
             'DESCRIPTION' => $this->description,
             'AUTHOR'      => $this->author,
@@ -41,12 +42,12 @@ class NF_Kozo_Generator
         );
 
         $old_dir = NF_Kozo::$dir . '/kozo/boilerplate';
-        $new_dir = NF_Kozo::$dir . '/kozo/ninja-forms-' . strtolower( $this->name );
+        $new_dir = NF_Kozo::$dir . '/kozo/ninja-forms-' . $args['name'];
 
         $this->clone_dir( $old_dir, $new_dir, $args );
 
         if ( $this->install AND defined( 'WP_PLUGIN_DIR' ) ){
-            $this->clone_dir( $new_dir, WP_PLUGIN_DIR . '/ninja-forms-' . strtolower( $this->name ));
+            $this->clone_dir( $new_dir, WP_PLUGIN_DIR . '/ninja-forms-' . $args['name'] );
         }
 
         if ( $this->download ){
