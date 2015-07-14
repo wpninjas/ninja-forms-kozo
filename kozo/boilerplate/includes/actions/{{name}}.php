@@ -3,9 +3,14 @@
 final class NF_Action_{{NAME}} extends NF_Notification_Base_Type
 {
     /**
-     * @var name
+     * @var string
      */
     public $name;
+
+    /**
+     * @var string
+     */
+    public $slug = '{{name}}';
 
 
 
@@ -28,7 +33,7 @@ final class NF_Action_{{NAME}} extends NF_Notification_Base_Type
      */
     public function register_action_type( $types )
     {
-        $types[ $this->name ] = $this;
+        $types[ $this->slug ] = $this;
         return (array) $types;
     }
 
