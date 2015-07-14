@@ -60,4 +60,4 @@ final class NF_Action_{{NAME}} extends NF_Notification_Base_Type
     }
 }
 
-new NF_{{NAME}}_Action;
+new NF_Action_{{NAME}}();

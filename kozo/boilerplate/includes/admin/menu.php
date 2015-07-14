@@ -59,4 +59,4 @@ final class NF_Menu_{{NAME}} extends NF_Base_Menu
 
 } // End NF_{{NAME}}_Menu Class
 
-new NF_{{NAME}}_Menu();
+new NF_Menu_{{NAME}}();
