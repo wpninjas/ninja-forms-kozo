@@ -1,6 +1,6 @@
 <tr>
     <th scope="row">
-        <label for="settings[example]"><?php NF_{{Name}}::_e( 'Example Setting' ); ?></label>
+        <label for="settings[example]"><?php _e( 'Example Setting', NF_{{NAME}}::TEXTDOMAIN ); ?></label>
     </th>
     <td>
         <input type="text" name="settings[example]" id="settings-example" value="<?php echo $settings['example']; ?>" />
