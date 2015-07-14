@@ -1,7 +1,7 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit;
 
 /*
-Plugin Name: Ninja Forms - {{NAME}}
+Plugin Name: Ninja Forms - {{Name}}
 Plugin URI: {{PLUGIN URI}}
 Description: {{DESCRIPTION}}
 Version: 0.0.1
