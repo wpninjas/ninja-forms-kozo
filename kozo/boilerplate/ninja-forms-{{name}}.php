@@ -58,6 +58,8 @@ class NF_{{NAME}}
         self::$url = plugin_dir_url( __FILE__ );
 
         add_action( 'plugins_loaded', array( $this, 'ninja_forms_includes' ) );
+
+        add_action( 'admin_init', array( $this, 'ninja_forms_extension_setup_license' ) );
     }
 
 
