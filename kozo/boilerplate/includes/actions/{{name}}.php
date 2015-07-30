@@ -1,4 +1,4 @@
-<?php if ( ! defined( 'ABSPATH' ) ) exit;
+<?php if ( ! defined( 'ABSPATH' ) or ! class_exists( 'NF_Notification_Base_Type' ) ) exit;
 
 final class NF_Action_{{NAME}} extends NF_Notification_Base_Type
 {
