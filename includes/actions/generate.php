@@ -1,6 +1,6 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit;
 
-final class NF_Generate_Action extends NF_Notification_Base_Type
+final class NF_Action_Generate extends NF_Notification_Base_Type
 {
     const SLUG = 'kozo-generate';
 
@@ -116,4 +116,4 @@ final class NF_Generate_Action extends NF_Notification_Base_Type
     }
 }
 
-new NF_Generate_Action;
+new NF_Action_Generate;
