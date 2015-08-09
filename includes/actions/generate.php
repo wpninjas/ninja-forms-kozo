@@ -2,6 +2,8 @@
 
 final class NF_Generate_Action extends NF_Notification_Base_Type
 {
+    const SLUG = 'kozo-generate';
+
     /**
      * @var name
      */
@@ -14,9 +16,13 @@ final class NF_Generate_Action extends NF_Notification_Base_Type
      */
     public function __construct()
     {
-        $this->name = __( 'Generate', NF_Kozo::TEXTDOMAIN );
+        $this->name = __( 'Generate Plugin', NF_Kozo::TEXTDOMAIN );
 
         add_filter( 'nf_notification_types', array( $this, 'register_action_type' ) );
+
+        if( ( isset( $_GET['page'] ) AND 'ninja-forms' == $_GET['page']) AND ( isset( $_GET['form_id']) ) ){
+          add_action( 'admin_notices', array( $this, 'check_for_redirects' ) );
+        }
     }
 
 
@@ -28,7 +34,7 @@ final class NF_Generate_Action extends NF_Notification_Base_Type
      */
     public function register_action_type( $types )
     {
-        $types[ $this->name ] = $this;
+        $types[ self::SLUG ] = $this;
         return (array) $types;
     }
 
@@ -84,6 +90,29 @@ final class NF_Generate_Action extends NF_Notification_Base_Type
         $generator = new NF_Kozo_Generator( $args );
 
         $generator->generate();
+    }
+
+    public function check_for_redirects()
+    {
+      $actions = nf_get_notifications_by_form_id( $_GET['form_id'] );
+
+      $is_active_redirect = FALSE;
+      $is_active_kozo_generate = FALSE;
+
+      foreach( $actions as $action ){
+
+        if( 'redirect' == $action['type'] AND $action['active']  ){
+          $is_active_redirect = TRUE;
+        }
+
+        if( self::SLUG == $action['type'] AND $action['active']  ){
+          $is_active_kozo_generate = TRUE;
+        }
+
+        if( $is_active_kozo_generate AND $is_active_redirect ){
+          include NF_Kozo::$dir . 'includes/templates/action-generate-admin-notice.html.php';
+        }
+      }
     }
 }
 
