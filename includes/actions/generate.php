@@ -18,11 +18,13 @@ final class NF_Action_Generate extends NF_Notification_Base_Type
     {
         $this->name = __( 'Generate Plugin', NF_Kozo::TEXTDOMAIN );
 
+        add_action( 'init', array( $this, 'download' ) );
+
+        add_action( 'wp_head', array( $this, 'download_redirect') );
+
         add_filter( 'nf_notification_types', array( $this, 'register_action_type' ) );
 
-        if( ( isset( $_GET['page'] ) AND 'ninja-forms' == $_GET['page']) AND ( isset( $_GET['form_id']) ) ){
-          add_action( 'admin_notices', array( $this, 'check_for_redirects' ) );
-        }
+        add_action( 'admin_notices', array( $this, 'check_for_redirects' ) );
     }
 
 
@@ -89,11 +91,24 @@ final class NF_Action_Generate extends NF_Notification_Base_Type
 
         $generator = new NF_Kozo_Generator( $args );
 
-        $generator->generate();
+        $file_path = $generator->generate();
+
+        $file_path_hashed = wp_hash( $file_path );
+
+        add_option( 'nf_kozo_download_' . $file_path_hashed, $file_path );
+
+        $download_nonce = wp_create_nonce( 'nf_kozo_download_' . $file_path_hashed );
+
+        if( $ninja_forms_processing ){
+          $redirect_url = add_query_arg( array( 'nf-kozo-nonce' => $download_nonce, 'nf-kozo-download' => $file_path_hashed ) ) ;
+		      $ninja_forms_processing->update_form_setting( 'landing_page', $redirect_url );
+        }
     }
 
     public function check_for_redirects()
     {
+      if( ( isset( $_GET['page'] ) AND 'ninja-forms' != $_GET['page']) AND ( ! isset( $_GET['form_id']) ) ) return;
+
       $actions = nf_get_notifications_by_form_id( $_GET['form_id'] );
 
       $is_active_redirect = FALSE;
@@ -112,6 +127,32 @@ final class NF_Action_Generate extends NF_Notification_Base_Type
         if( $is_active_kozo_generate AND $is_active_redirect ){
           include NF_Kozo::$dir . 'includes/templates/action-generate-admin-notice.html.php';
         }
+      }
+    }
+
+    public function download_redirect()
+    {
+      $nonce = $_REQUEST['nf-kozo-nonce'];
+      $file_path_hashed = $_REQUEST['nf-kozo-download'];
+      if( wp_verify_nonce( $nonce, 'nf_kozo_download_' . $file_path_hashed )  AND ( ! $_REQUEST['nf-kozo-do-download'] )  ) {
+
+        $file_path = get_option( 'nf_kozo_download_' . $file_path_hashed );
+
+        $download_nonce = wp_create_nonce( 'nf_kozo_download_' . $file_path_hashed );
+
+        echo '<meta http-equiv="refresh" content="0; URL=' . add_query_arg( array( 'nf-kozo-download-nonce' => $download_nonce, 'nf-kozo-do-download' => 1)) . '">;';
+      }
+    }
+
+    public function download()
+    {
+      $nonce = $_REQUEST['nf-kozo-download-nonce'];
+      $file_path_hashed = $_REQUEST['nf-kozo-download'];
+      if( wp_verify_nonce( $nonce, 'nf_kozo_download_' . $file_path_hashed ) AND ( $_REQUEST['nf-kozo-do-download'] ) ) {
+
+        $file_path = get_option( 'nf_kozo_download_' . $file_path_hashed );
+
+        NF_Kozo_Generator::download( $file_path );
       }
     }
 }

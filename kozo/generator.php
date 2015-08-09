@@ -52,10 +52,9 @@ class NF_Kozo_Generator
 
         if ( $this->download ){
             $this->zip( $new_dir, $new_dir . '.zip' );
-            $this->download( $new_dir . '.zip' );
         }
 
-        $this->delete_dir( $new_dir );
+        return $new_dir . '.zip';
     }
 
     /**
@@ -133,7 +132,7 @@ class NF_Kozo_Generator
      * @param $file_path
      * @return void
      */
-    private function download( $file_path )
+    public static function download( $file_path, $delete = TRUE )
     {
         if ( file_exists($file_path) ){
             header('Content-Description: File Transfer');
@@ -145,6 +144,11 @@ class NF_Kozo_Generator
             header('Content-Length: ' . filesize($file_path));
             readfile($file_path);
             unlink($file_path);
+
+            if( $delete ){
+              $this->delete_dir( $file_path );
+            }
+
         }
     }
 
