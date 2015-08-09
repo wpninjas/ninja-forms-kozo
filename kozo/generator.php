@@ -46,6 +46,8 @@ class NF_Kozo_Generator
 
         $this->clone_dir( $old_dir, $new_dir, $args );
 
+        $this->import_screenshot( $new_dir, $args['NAME'] );
+
         if ( $this->install AND defined( 'WP_PLUGIN_DIR' ) ){
             $this->clone_dir( $new_dir, WP_PLUGIN_DIR . '/ninja-forms-' . $args['name'] );
         }
@@ -202,5 +204,19 @@ class NF_Kozo_Generator
         }
 
         return $zip->close();
+    }
+
+    private function import_screenshot( $dir, $name )
+    {
+      $url = 'https://placeholdit.imgix.net/~text?txtsize=63&txt=' . $name . '&w=700&h=350';
+      $img = $dir . '/assets/screenshot-1.png';
+
+      $ch = curl_init( $url );
+      $fp = fopen( $img , 'wb');
+      curl_setopt($ch, CURLOPT_FILE, $fp);
+      curl_setopt($ch, CURLOPT_HEADER, 0);
+      curl_exec($ch);
+      curl_close($ch);
+      fclose($fp);
     }
 }
