@@ -7,6 +7,5 @@
 node_modules
 
 # Project Stuff
-kozo/*
-!kozo/boilerplate
-!kozo/generator.php
+downloads/*
+!downloads/index.php
