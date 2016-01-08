@@ -1,8 +1,8 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit;
 
-final class NF_Action_Generate extends NF_Notification_Base_Type
+final class NF_Action_GenerateThreeExtension extends NF_Notification_Base_Type
 {
-    const SLUG = 'kozo-generate';
+    const SLUG = 'kozo-generate-three-extension';
 
     /**
      * @var name
@@ -16,7 +16,7 @@ final class NF_Action_Generate extends NF_Notification_Base_Type
      */
     public function __construct()
     {
-        $this->name = __( 'Generate Plugin', NF_Kozo::TEXTDOMAIN );
+        $this->name = __( 'Generate THREE Extension', NF_Kozo::TEXTDOMAIN );
 
         add_action( 'init', array( $this, 'download' ) );
 
@@ -82,12 +82,12 @@ final class NF_Action_Generate extends NF_Notification_Base_Type
 
         $args = array(
             'name'        => $ninja_forms_processing->get_field_value( $settings['plugin-name'] ),
-            'plugin_uri'  => $ninja_forms_processing->get_field_value( $settings['plugin-uri'] ),
+            'plugin_uri'         => $ninja_forms_processing->get_field_value( $settings['plugin-uri'] ),
             'description' => $ninja_forms_processing->get_field_value( $settings['description'] ),
-            'author'      => $ninja_forms_processing->get_field_value( $settings['author'] ),
-            'author_uri'  => $ninja_forms_processing->get_field_value( $settings['author-uri'] ),
-            'download'    => $settings['download'],
-            'generate_screenshot' => TRUE
+            'author'        => $ninja_forms_processing->get_field_value( $settings['author'] ),
+            'author_uri'         => $ninja_forms_processing->get_field_value( $settings['author-uri'] ),
+            'download'           => $settings['download'],
+            'boilerplate' => 'three-extension'
         );
 
         $generator = new NF_Kozo_Generator( $args );
@@ -101,61 +101,61 @@ final class NF_Action_Generate extends NF_Notification_Base_Type
         $download_nonce = wp_create_nonce( 'nf_kozo_download_' . $file_path_hashed );
 
         if( $ninja_forms_processing ){
-          $redirect_url = add_query_arg( array( 'nf-kozo-nonce' => $download_nonce, 'nf-kozo-download' => $file_path_hashed ) ) ;
-		      $ninja_forms_processing->update_form_setting( 'landing_page', $redirect_url );
+            $redirect_url = add_query_arg( array( 'nf-kozo-nonce' => $download_nonce, 'nf-kozo-download' => $file_path_hashed ) ) ;
+            $ninja_forms_processing->update_form_setting( 'landing_page', $redirect_url );
         }
     }
 
     public function check_for_redirects()
     {
-      if( ( isset( $_GET['page'] ) AND 'ninja-forms' != $_GET['page']) AND ( ! isset( $_GET['form_id']) ) ) return;
+        if( ( isset( $_GET['page'] ) AND 'ninja-forms' != $_GET['page']) AND ( ! isset( $_GET['form_id']) ) ) return;
 
-      $actions = nf_get_notifications_by_form_id( $_GET['form_id'] );
+        $actions = nf_get_notifications_by_form_id( $_GET['form_id'] );
 
-      $is_active_redirect = FALSE;
-      $is_active_kozo_generate = FALSE;
+        $is_active_redirect = FALSE;
+        $is_active_kozo_generate = FALSE;
 
-      foreach( $actions as $action ){
+        foreach( $actions as $action ){
 
-        if( 'redirect' == $action['type'] AND $action['active']  ){
-          $is_active_redirect = TRUE;
+            if( 'redirect' == $action['type'] AND $action['active']  ){
+                $is_active_redirect = TRUE;
+            }
+
+            if( self::SLUG == $action['type'] AND $action['active']  ){
+                $is_active_kozo_generate = TRUE;
+            }
+
+            if( $is_active_kozo_generate AND $is_active_redirect ){
+                include NF_Kozo::$dir . 'includes/templates/action-generate-admin-notice.html.php';
+            }
         }
-
-        if( self::SLUG == $action['type'] AND $action['active']  ){
-          $is_active_kozo_generate = TRUE;
-        }
-
-        if( $is_active_kozo_generate AND $is_active_redirect ){
-          include NF_Kozo::$dir . 'includes/templates/action-generate-admin-notice.html.php';
-        }
-      }
     }
 
     public function download_redirect()
     {
-      $nonce = $_REQUEST['nf-kozo-nonce'];
-      $file_path_hashed = $_REQUEST['nf-kozo-download'];
-      if( wp_verify_nonce( $nonce, 'nf_kozo_download_' . $file_path_hashed )  AND ( ! $_REQUEST['nf-kozo-do-download'] )  ) {
+        $nonce = $_REQUEST['nf-kozo-nonce'];
+        $file_path_hashed = $_REQUEST['nf-kozo-download'];
+        if( wp_verify_nonce( $nonce, 'nf_kozo_download_' . $file_path_hashed )  AND ( ! $_REQUEST['nf-kozo-do-download'] )  ) {
 
-        $file_path = get_option( 'nf_kozo_download_' . $file_path_hashed );
+            $file_path = get_option( 'nf_kozo_download_' . $file_path_hashed );
 
-        $download_nonce = wp_create_nonce( 'nf_kozo_download_' . $file_path_hashed );
+            $download_nonce = wp_create_nonce( 'nf_kozo_download_' . $file_path_hashed );
 
-        echo '<meta http-equiv="refresh" content="0; URL=' . add_query_arg( array( 'nf-kozo-download-nonce' => $download_nonce, 'nf-kozo-do-download' => 1)) . '">;';
-      }
+            echo '<meta http-equiv="refresh" content="0; URL=' . add_query_arg( array( 'nf-kozo-download-nonce' => $download_nonce, 'nf-kozo-do-download' => 1)) . '">;';
+        }
     }
 
     public function download()
     {
-      $nonce = $_REQUEST['nf-kozo-download-nonce'];
-      $file_path_hashed = $_REQUEST['nf-kozo-download'];
-      if( wp_verify_nonce( $nonce, 'nf_kozo_download_' . $file_path_hashed ) AND ( $_REQUEST['nf-kozo-do-download'] ) ) {
+        $nonce = $_REQUEST['nf-kozo-download-nonce'];
+        $file_path_hashed = $_REQUEST['nf-kozo-download'];
+        if( wp_verify_nonce( $nonce, 'nf_kozo_download_' . $file_path_hashed ) AND ( $_REQUEST['nf-kozo-do-download'] ) ) {
 
-        $file_path = get_option( 'nf_kozo_download_' . $file_path_hashed );
+            $file_path = get_option( 'nf_kozo_download_' . $file_path_hashed );
 
-        NF_Kozo_Generator::download( $file_path );
-      }
+            NF_Kozo_Generator::download( $file_path );
+        }
     }
 }
 
-new NF_Action_Generate;
+new NF_Action_GenerateThreeExtension;

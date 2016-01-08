@@ -70,6 +70,7 @@ class NF_Kozo
     {
         require_once self::$dir . 'includes/actions/example.php';
         require_once self::$dir . 'includes/actions/generate.php';
+        require_once self::$dir . 'includes/actions/generate-three-extension.php';
     }
 
 

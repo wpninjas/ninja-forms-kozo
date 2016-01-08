@@ -16,6 +16,10 @@ class NF_Kozo_Generator
 
     public $install = FALSE;
 
+    public $boilerplate = 'boilerplate';
+
+    public $generate_screenshot = FALSE;
+
     public function __construct( array $args = array() )
     {
         foreach( $args as $property => $value  ){
@@ -41,8 +45,8 @@ class NF_Kozo_Generator
             'YEAR'        => date( 'Y', time() )
         );
 
-        $old_dir = NF_Kozo::$dir . '/kozo/boilerplate';
-        $new_dir = NF_Kozo::$dir . '/kozo/ninja-forms-' . $args['name'];
+        $old_dir = NF_Kozo::$dir . '/kozo/' . $this->boilerplate;
+        $new_dir = NF_Kozo::$dir . '/downloads/ninja-forms-' . $args['name'];
 
         $this->clone_dir( $old_dir, $new_dir, $args );
 
@@ -106,7 +110,7 @@ class NF_Kozo_Generator
      * @param $path
      * @return bool
      */
-    private function delete_dir($path)
+    public static function delete_dir($path)
     {
         if (is_dir($path) === true)
         {
@@ -114,7 +118,7 @@ class NF_Kozo_Generator
 
             foreach ($files as $file)
             {
-                $this->delete_dir(realpath($path) . '/' . $file);
+                self::delete_dir(realpath($path) . '/' . $file);
             }
 
             return rmdir($path);
@@ -148,7 +152,7 @@ class NF_Kozo_Generator
             unlink($file_path);
 
             if( $delete ){
-              $this->delete_dir( $file_path );
+              self::delete_dir( $file_path );
             }
 
         }
@@ -208,15 +212,17 @@ class NF_Kozo_Generator
 
     private function import_screenshot( $dir, $name )
     {
-      $url = 'https://placeholdit.imgix.net/~text?txtsize=63&txt=' . $name . '&w=700&h=350';
-      $img = $dir . '/assets/screenshot-1.png';
+        if( $this->generate_screenshot ) {
+            $url = 'https://placeholdit.imgix.net/~text?txtsize=63&txt=' . $name . '&w=700&h=350';
+            $img = $dir . '/assets/screenshot-1.png';
 
-      $ch = curl_init( $url );
-      $fp = fopen( $img , 'wb');
-      curl_setopt($ch, CURLOPT_FILE, $fp);
-      curl_setopt($ch, CURLOPT_HEADER, 0);
-      curl_exec($ch);
-      curl_close($ch);
-      fclose($fp);
+            $ch = curl_init($url);
+            $fp = fopen($img, 'wb');
+            curl_setopt($ch, CURLOPT_FILE, $fp);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_exec($ch);
+            curl_close($ch);
+            fclose($fp);
+        }
     }
 }
