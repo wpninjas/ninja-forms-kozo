@@ -81,9 +81,9 @@ if( version_compare( get_option( 'ninja_forms_version', '0.0.0' ), '3.0.0', '>' 
         public function __construct()
         {
             add_action( 'admin_init', array( $this, 'setup_license') );
-            add_action( 'nf_register_fields', array($this, 'register_fields'));
-            add_action( 'nf_register_actions', array($this, 'register_actions'));
-            add_action( 'ninja_forms_register_payment_gateways', array($this, 'register_payment_gateways'));
+            add_filter( 'nf_register_fields', array($this, 'register_fields'));
+            add_filter( 'nf_register_actions', array($this, 'register_actions'));
+            add_filter( 'ninja_forms_register_payment_gateways', array($this, 'register_payment_gateways'));
         }
 
         public function setup_license()
