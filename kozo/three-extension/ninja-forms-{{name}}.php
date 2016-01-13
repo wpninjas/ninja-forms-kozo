@@ -80,39 +80,60 @@ if( version_compare( get_option( 'ninja_forms_version', '0.0.0' ), '3.0.0', '>' 
 
         public function __construct()
         {
+            /*
+             * Required for all Extensions.
+             */
             add_action( 'admin_init', array( $this, 'setup_license') );
+
+            /*
+             * Optional. If your extension creates a new field interaction or display template...
+             */
             add_filter( 'nf_register_fields', array($this, 'register_fields'));
+
+            /*
+             * Optional. If your extension processes or alters form submission data on a per form basis...
+             */
             add_filter( 'nf_register_actions', array($this, 'register_actions'));
+
+            /*
+             * Optional. If your extension collects a payment (ie Strip, PayPal, etc)...
+             */
             add_filter( 'ninja_forms_register_payment_gateways', array($this, 'register_payment_gateways'));
         }
 
-        public function setup_license()
-        {
-            if ( ! class_exists( 'NF_Extension_Updater' ) ) return;
-
-            new NF_Extension_Updater( self::NAME, self::VERSION, self::AUTHOR, __FILE__, self::SLUG );
-        }
-
+        /**
+         * Optional. If your extension creates a new field interaction or display template...
+         */
         public function register_fields($actions)
         {
-            $actions[ '{{name}}' ] = new NF_{{NAME}}_Fields_{{NAME}}Example();
+            $actions[ '{{name}}' ] = new NF_{{NAME}}_Fields_{{NAME}}Example(); // includes/Fields/{{NAME}}Example.php
 
             return $actions;
         }
 
+        /**
+         * Optional. If your extension processes or alters form submission data on a per form basis...
+         */
         public function register_actions($actions)
         {
-            $actions[ '{{name}}' ] = new NF_{{NAME}}_Actions_{{NAME}}Example();
+            $actions[ '{{name}}' ] = new NF_{{NAME}}_Actions_{{NAME}}Example(); // includes/Actions/{{NAME}}Example.php
 
             return $actions;
         }
 
+        /**
+         * Optional. If your extension collects a payment (ie Strip, PayPal, etc)...
+         */
         public function register_payment_gateways($payment_gateways)
         {
-            $payment_gateways[ '{{name}}' ] = new NF_{{NAME}}_PaymentGateways_{{NAME}}Example();
+            $payment_gateways[ '{{name}}' ] = new NF_{{NAME}}_PaymentGateways_{{NAME}}Example(); // includes/PaymentGateways/{{NAME}}Example.php
 
             return $payment_gateways;
         }
+
+        /*
+         * Optional methods for convenience.
+         */
 
         public function autoloader($class_name)
         {
@@ -127,6 +148,17 @@ if( version_compare( get_option( 'ninja_forms_version', '0.0.0' ), '3.0.0', '>' 
             if (file_exists($classes_dir . $class_file)) {
                 require_once $classes_dir . $class_file;
             }
+        }
+
+        /*
+         * Required methods for all extension.
+         */
+
+        public function setup_license()
+        {
+            if ( ! class_exists( 'NF_Extension_Updater' ) ) return;
+
+            new NF_Extension_Updater( self::NAME, self::VERSION, self::AUTHOR, __FILE__, self::SLUG );
         }
     }
 
