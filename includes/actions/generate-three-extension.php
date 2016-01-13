@@ -134,7 +134,7 @@ final class NF_Action_GenerateThreeExtension extends NF_Notification_Base_Type
 
         $nonce = $_REQUEST['nf-kozo-nonce'];
         $file_path_hashed = $_REQUEST['nf-kozo-download'];
-        if( wp_verify_nonce( $nonce, 'nf_kozo_download_' . $file_path_hashed )  AND ( ! $_REQUEST['nf-kozo-do-download'] )  ) {
+        if( wp_verify_nonce( $nonce, 'nf_kozo_download_' . $file_path_hashed )  AND ( ! isset( $_REQUEST['nf-kozo-do-download'] ) )  ) {
 
             $file_path = get_option( 'nf_kozo_download_' . $file_path_hashed );
 
