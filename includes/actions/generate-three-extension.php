@@ -51,14 +51,9 @@ final class NF_Action_GenerateThreeExtension extends NF_Notification_Base_Type
     {
         $form = Ninja_Forms()->form( $_GET['form_id'] );
 
-        $settings['plugin-name'] = Ninja_Forms()->notification( $id )->get_setting( 'plugin-name' );
-        $settings['plugin-uri']  = Ninja_Forms()->notification( $id )->get_setting( 'plugin-uri' );
-        $settings['description'] = Ninja_Forms()->notification( $id )->get_setting( 'description' );
-        $settings['author']      = Ninja_Forms()->notification( $id )->get_setting( 'author' );
-        $settings['author-uri']  = Ninja_Forms()->notification( $id )->get_setting( 'author-uri' );
-        $settings['download']    = Ninja_Forms()->notification( $id )->get_setting( 'download' );
+        $settings = $this->get_settings( $id );
 
-        include NF_Kozo::$dir . 'includes/templates/action-generate.html.php';
+        include NF_Kozo::$dir . 'includes/templates/action-generate-three.html.php';
     }
 
 
@@ -73,20 +68,22 @@ final class NF_Action_GenerateThreeExtension extends NF_Notification_Base_Type
     {
         global $ninja_forms_processing;
 
-        $settings['plugin-name'] = Ninja_Forms()->notification( $id )->get_setting( 'plugin-name' );
-        $settings['plugin-uri']  = Ninja_Forms()->notification( $id )->get_setting( 'plugin-uri' );
-        $settings['description'] = Ninja_Forms()->notification( $id )->get_setting( 'description' );
-        $settings['author']      = Ninja_Forms()->notification( $id )->get_setting( 'author' );
-        $settings['author-uri']  = Ninja_Forms()->notification( $id )->get_setting( 'author-uri' );
-        $settings['download']    = Ninja_Forms()->notification( $id )->get_setting( 'download' );
+        $settings = $this->get_settings( $id );
 
         $args = array(
             'name'        => $ninja_forms_processing->get_field_value( $settings['plugin-name'] ),
             'plugin_uri'         => $ninja_forms_processing->get_field_value( $settings['plugin-uri'] ),
             'description' => $ninja_forms_processing->get_field_value( $settings['description'] ),
+
+            'use_action' => $ninja_forms_processing->get_field_value( $settings['use-action'] ),
+            'use_field' => $ninja_forms_processing->get_field_value( $settings['use-field'] ),
+            'use_payment' => $ninja_forms_processing->get_field_value( $settings['use-payment'] ),
+
             'author'        => $ninja_forms_processing->get_field_value( $settings['author'] ),
             'author_uri'         => $ninja_forms_processing->get_field_value( $settings['author-uri'] ),
+
             'download'           => $settings['download'],
+
             'boilerplate' => 'three-extension'
         );
 
@@ -133,6 +130,8 @@ final class NF_Action_GenerateThreeExtension extends NF_Notification_Base_Type
 
     public function download_redirect()
     {
+        if( ! isset( $_REQUEST['nf-kozo-download-nonce'] ) ) return;
+
         $nonce = $_REQUEST['nf-kozo-nonce'];
         $file_path_hashed = $_REQUEST['nf-kozo-download'];
         if( wp_verify_nonce( $nonce, 'nf_kozo_download_' . $file_path_hashed )  AND ( ! $_REQUEST['nf-kozo-do-download'] )  ) {
@@ -147,6 +146,8 @@ final class NF_Action_GenerateThreeExtension extends NF_Notification_Base_Type
 
     public function download()
     {
+        if( ! isset( $_REQUEST['nf-kozo-download-nonce'] ) ) return;
+
         $nonce = $_REQUEST['nf-kozo-download-nonce'];
         $file_path_hashed = $_REQUEST['nf-kozo-download'];
         if( wp_verify_nonce( $nonce, 'nf_kozo_download_' . $file_path_hashed ) AND ( $_REQUEST['nf-kozo-do-download'] ) ) {
@@ -155,6 +156,28 @@ final class NF_Action_GenerateThreeExtension extends NF_Notification_Base_Type
 
             NF_Kozo_Generator::download( $file_path );
         }
+    }
+
+    private function get_settings( $id = '' )
+    {
+        $settings = array();
+
+        if( ! $id ) return $settings;
+
+        $settings['plugin-name'] = Ninja_Forms()->notification( $id )->get_setting( 'plugin-name' );
+        $settings['plugin-uri']  = Ninja_Forms()->notification( $id )->get_setting( 'plugin-uri' );
+        $settings['description'] = Ninja_Forms()->notification( $id )->get_setting( 'description' );
+
+        $settings['use-action'] = Ninja_Forms()->notification( $id )->get_setting( 'use-action' );
+        $settings['use-field'] = Ninja_Forms()->notification( $id )->get_setting( 'use-field' );
+        $settings['use-payment'] = Ninja_Forms()->notification( $id )->get_setting( 'use-payment' );
+
+        $settings['author']      = Ninja_Forms()->notification( $id )->get_setting( 'author' );
+        $settings['author-uri']  = Ninja_Forms()->notification( $id )->get_setting( 'author-uri' );
+
+        $settings['download']    = Ninja_Forms()->notification( $id )->get_setting( 'download' );
+
+        return $settings;
     }
 }
 

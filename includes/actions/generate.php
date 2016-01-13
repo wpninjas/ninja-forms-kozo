@@ -133,28 +133,32 @@ final class NF_Action_Generate extends NF_Notification_Base_Type
 
     public function download_redirect()
     {
-      $nonce = $_REQUEST['nf-kozo-nonce'];
-      $file_path_hashed = $_REQUEST['nf-kozo-download'];
-      if( wp_verify_nonce( $nonce, 'nf_kozo_download_' . $file_path_hashed )  AND ( ! $_REQUEST['nf-kozo-do-download'] )  ) {
+        if( ! isset( $_REQUEST['nf-kozo-download-nonce'] ) ) return;
 
-        $file_path = get_option( 'nf_kozo_download_' . $file_path_hashed );
+        $nonce = $_REQUEST['nf-kozo-nonce'];
+        $file_path_hashed = $_REQUEST['nf-kozo-download'];
+        if( wp_verify_nonce( $nonce, 'nf_kozo_download_' . $file_path_hashed )  AND ( ! $_REQUEST['nf-kozo-do-download'] )  ) {
 
-        $download_nonce = wp_create_nonce( 'nf_kozo_download_' . $file_path_hashed );
+            $file_path = get_option( 'nf_kozo_download_' . $file_path_hashed );
 
-        echo '<meta http-equiv="refresh" content="0; URL=' . add_query_arg( array( 'nf-kozo-download-nonce' => $download_nonce, 'nf-kozo-do-download' => 1)) . '">;';
-      }
+            $download_nonce = wp_create_nonce( 'nf_kozo_download_' . $file_path_hashed );
+
+            echo '<meta http-equiv="refresh" content="0; URL=' . add_query_arg( array( 'nf-kozo-download-nonce' => $download_nonce, 'nf-kozo-do-download' => 1)) . '">;';
+        }
     }
 
     public function download()
     {
-      $nonce = $_REQUEST['nf-kozo-download-nonce'];
-      $file_path_hashed = $_REQUEST['nf-kozo-download'];
-      if( wp_verify_nonce( $nonce, 'nf_kozo_download_' . $file_path_hashed ) AND ( $_REQUEST['nf-kozo-do-download'] ) ) {
+        if( ! isset( $_REQUEST['nf-kozo-download-nonce'] ) ) return;
 
-        $file_path = get_option( 'nf_kozo_download_' . $file_path_hashed );
+        $nonce = $_REQUEST['nf-kozo-download-nonce'];
+        $file_path_hashed = $_REQUEST['nf-kozo-download'];
+        if( wp_verify_nonce( $nonce, 'nf_kozo_download_' . $file_path_hashed ) AND ( $_REQUEST['nf-kozo-do-download'] ) ) {
 
-        NF_Kozo_Generator::download( $file_path );
-      }
+            $file_path = get_option( 'nf_kozo_download_' . $file_path_hashed );
+
+            NF_Kozo_Generator::download( $file_path );
+        }
     }
 }
 

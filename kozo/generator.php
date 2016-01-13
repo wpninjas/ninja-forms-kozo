@@ -20,6 +20,8 @@ class NF_Kozo_Generator
 
     public $generate_screenshot = FALSE;
 
+    protected $_args = array();
+
     public function __construct( array $args = array() )
     {
         foreach( $args as $property => $value  ){
@@ -27,6 +29,8 @@ class NF_Kozo_Generator
                 $this->$property = $value;
             }
         }
+
+        $this->_args = $args;
     }
 
     /**
@@ -44,6 +48,18 @@ class NF_Kozo_Generator
             'AUTHOR URI'  => $this->author_uri,
             'YEAR'        => date( 'Y', time() )
         );
+
+        if( isset( $this->_args[ 'use_action' ] ) && $this->_args[ 'use_action' ] ){
+            $args[ 'action' ] = 'ACTION HERE';
+        }
+
+        if( isset( $this->_args[ 'use_field' ] ) && $this->_args[ 'use_field' ] ){
+            $args[ 'field' ] = 'FIELD HERE';
+        }
+
+        if( isset( $this->_args[ 'use_payment' ] ) && $this->_args[ 'use_payment' ] ){
+            $args[ 'payment' ] = 'PAYMENT HERE';
+        }
 
         $old_dir = NF_Kozo::$dir . '/kozo/' . $this->boilerplate;
         $new_dir = NF_Kozo::$dir . '/downloads/ninja-forms-' . $args['name'];
