@@ -105,7 +105,7 @@ final class NF_Action_GenerateThreeExtension extends NF_Notification_Base_Type
 
     public function check_for_redirects()
     {
-        if( ( isset( $_GET['page'] ) AND 'ninja-forms' != $_GET['page']) AND ( ! isset( $_GET['form_id']) ) ) return;
+        if( ( isset( $_GET['page'] ) AND 'ninja-forms' != $_GET['page'] ) OR ( ! isset( $_GET['form_id']) ) ) return;
 
         $actions = nf_get_notifications_by_form_id( $_GET['form_id'] );
 
@@ -130,7 +130,7 @@ final class NF_Action_GenerateThreeExtension extends NF_Notification_Base_Type
 
     public function download_redirect()
     {
-        if( ! isset( $_REQUEST['nf-kozo-download-nonce'] ) ) return;
+        if( ! isset( $_REQUEST['nf-kozo-nonce'] ) ) return;
 
         $nonce = $_REQUEST['nf-kozo-nonce'];
         $file_path_hashed = $_REQUEST['nf-kozo-download'];
