@@ -149,6 +149,32 @@ if( version_compare( get_option( 'ninja_forms_version', '0.0.0' ), '3.0', '>' ) 
                 require_once $classes_dir . $class_file;
             }
         }
+        
+        /**
+         * Template
+         *
+         * @param string $file_name
+         * @param array $data
+         */
+        public static function template( $file_name = '', array $data = array() )
+        {
+            if( ! $file_name ) return;
+
+            extract( $data );
+
+            include self::$dir . 'includes/Templates/' . $file_name;
+        }
+        
+        /**
+         * Config
+         *
+         * @param $file_name
+         * @return mixed
+         */
+        public static function config( $file_name )
+        {
+            return include self::$dir . 'includes/Config/' . $file_name . '.php';
+        }
 
         /*
          * Required methods for all extension.
