@@ -7,7 +7,7 @@
  * Version: 0.0.1
  * Author: {{AUTHOR}}
  * Author URI: {{AUTHOR URI}}
- * Text Domain: {{name}}
+ * Text Domain: ninja-forms-{{name}}
  *
  * Copyright {{YEAR}} {{AUTHOR}}.
  */
