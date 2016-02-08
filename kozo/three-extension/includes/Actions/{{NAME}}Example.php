@@ -39,13 +39,13 @@ final class NF_{{NAME}}_Actions_{{NAME}}Example extends NF_Abstracts_Action
     * PUBLIC METHODS
     */
 
-    public function save()
-{
-
-}
+    public function save( $action_settings )
+    {
+    
+    }
 
     public function process( $action_settings, $form_id, $data )
-{
-    return $data;
-}
+    {
+        return $data;
+    }
 }
