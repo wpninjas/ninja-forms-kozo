@@ -4,7 +4,7 @@
  * Plugin Name: Ninja Forms - {{Name}}
  * Plugin URI: {{PLUGIN URI}}
  * Description: {{DESCRIPTION}}
- * Version: 0.0.1
+ * Version: 3.0.0
  * Author: {{AUTHOR}}
  * Author URI: {{AUTHOR URI}}
  * Text Domain: ninja-forms-{{name}}
